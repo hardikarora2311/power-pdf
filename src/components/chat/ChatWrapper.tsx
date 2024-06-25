@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Messages from './Messages'
 import ChatInput from './ChatInput'
 import { trpc } from '@/app/_trpc/client'
@@ -8,6 +8,7 @@ import { ChevronLeft, Loader2, XCircle } from 'lucide-react'
 import Link from 'next/link'
 import { buttonVariants } from '../ui/button'
 import { ChatContextProvider } from './ChatContext'
+import { UploadStatus } from '@prisma/client'
 
 
 
@@ -16,14 +17,19 @@ interface ChatWrapperProps{
 }
 const ChatWrapper = ({fileId}: ChatWrapperProps) => {
 
+  const [status, setStatus] = useState<UploadStatus>();
+
   const {data , isLoading} = trpc.getFileUploadStatus.useQuery({
     fileId,
   }, 
   {
-    refetchInterval: (data)=>
-      data?.status === 'SUCCESS' || data?.status === "FAILED" ? false : 500,
+    refetchInterval: ()=>
+      status === 'SUCCESS' || status === "FAILED" ? false : 500,
   },
-)
+);
+useEffect(() => {
+  setStatus(data?.status);
+}, [data?.status]);
 
   if (isLoading) return (
     <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between">
