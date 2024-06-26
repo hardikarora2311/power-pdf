@@ -2,7 +2,7 @@ import { getUserSubscriptionPlan } from '@/lib/stripe'
 import React from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { Button } from './ui/button'
-import { Avatar, AvatarFallback } from './ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import Image from 'next/image'
 import { Icons } from './icons'
 import Link from 'next/link'
@@ -27,7 +27,7 @@ const subscriptionPlan= await getUserSubscriptionPlan()
                 <Avatar className='relative w-8 h-8'>
                     {imageUrl? (
                         <div className='relative aspect-square h-full w-full'>
-                            <Image fill src={imageUrl} alt='profile picture' referrerPolicy='no-referrer'/>
+                            <AvatarImage src={imageUrl} alt='profile picture' referrerPolicy='no-referrer'/>
                         </div>
                     ): (<AvatarFallback>
                             <span className='sr-only'>{name}</span>
