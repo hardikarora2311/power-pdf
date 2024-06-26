@@ -5,6 +5,8 @@ import { LoginLink, RegisterLink, getKindeServerSession } from "@kinde-oss/kinde
 import { ArrowRight } from "lucide-react";
 import UserAccountNav from "./UserAccountNav";
 import MobileNav from "./MobileNav";
+import { SOURCE_CODE } from "@/config/links";
+import Image from "next/image";
 
 const Navbar = async () => {
 
@@ -20,9 +22,11 @@ const Navbar = async () => {
                     <span>PowerPDF</span>
                 </Link>
 
+                <div className="flex items-center justify-center space-x-4">
+
                 <MobileNav isAuth={!!user}/>
 
-                <div className="hidden items-center space-x-4 sm:flex">
+                <div className="hidden sm:flex">
                     { !user ? <>
                         <Link href="/pricing" className={buttonVariants({
                             variant: "ghost",
@@ -50,6 +54,11 @@ const Navbar = async () => {
                         }/>
                     </>}
                 </div>
+
+                <Link href={SOURCE_CODE} target="_blank" rel='noreferrer noopener'>
+                    <Image src="/github.svg" height={25} width={25} alt="Github"/>
+                </Link>
+            </div>   
             </div>
         </MaxWidthWrapper>
     </nav>
